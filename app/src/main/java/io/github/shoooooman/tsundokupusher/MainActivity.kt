@@ -3,6 +3,7 @@ package io.github.shoooooman.tsundokupusher
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.*
 import java.text.SimpleDateFormat
@@ -97,6 +98,13 @@ class MainActivity : AppCompatActivity() {
 
             // 読み終わり
             if (book.pages <= book.readPages) {
+                // トーストを表示
+                val message = "読破おめでとうございます！"
+                val toast = Toast.makeText(applicationContext, message, Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+
+                // bookListから読み終わった本を削除
                 bookList.removeAll { it.name == book.name}
                 @Suppress("UNCHECKED_CAST")
                 val adapter = spinner.adapter as ArrayAdapter<String>
