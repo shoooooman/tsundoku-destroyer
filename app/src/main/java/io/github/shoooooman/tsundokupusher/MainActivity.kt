@@ -13,10 +13,10 @@ class MainActivity : AppCompatActivity() {
     private val bookList: MutableList<Book> = mutableListOf()
     private val tag = "main"
 
-    private fun calcSumPages() : Int {
+    private fun calcSumRestPages() : Int {
         var sum = 0
         for (book in bookList) {
-            sum += book.pages
+            sum += (book.pages - book.readPages)
         }
 
         return sum
@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         val selectedPages: EditText = findViewById(R.id.selectedPages)
         val updatePageButton: Button = findViewById(R.id.updatePageButton)
         val todayPages: TextView = findViewById(R.id.todayPages)
+        val allPages: TextView = findViewById(R.id.sumAllRestPages)
         val alreadyReadPages: TextView = findViewById(R.id.alreadyReadPages)
 
         updatePageButton.setOnClickListener {
@@ -90,6 +91,9 @@ class MainActivity : AppCompatActivity() {
 
             val today = Integer.parseInt(todayPages.text.toString())
             todayPages.text = (today - readPages).toString()
+
+            val rest = calcSumRestPages()
+            allPages.text = getString(R.string.sum_of_pages, rest)
 
             // 読み終わり
             if (book.pages <= book.readPages) {
@@ -119,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         val editDeadline: EditText = findViewById(R.id.editDeadline)
         val addButton: Button = findViewById(R.id.addButton)
         val todayPages: TextView = findViewById(R.id.todayPages)
+        val sumAllRestPages: TextView = findViewById(R.id.sumAllRestPages)
         val spinner: Spinner = findViewById(R.id.spinner)
 
         addButton.setOnClickListener {
@@ -135,6 +140,9 @@ class MainActivity : AppCompatActivity() {
 
             val today = calcTodayPages()
             todayPages.text = today.toString()
+
+            val rest = calcSumRestPages()
+            sumAllRestPages.text = getString(R.string.sum_of_pages, rest)
         }
     }
 
