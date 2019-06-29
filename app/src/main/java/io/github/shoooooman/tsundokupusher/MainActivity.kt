@@ -56,12 +56,23 @@ class MainActivity : AppCompatActivity() {
         for (book in bookList) {
             val deadline = book.deadline.time
             val tmp = (deadline - today) / (1000*60*60*24)
+            // 期限まで1日以下ならdiffを1日とする
             val diff = if (tmp == 0L) 1 else tmp
             val pages = book.pages - book.readPages
             sum += pages/diff
         }
 
         return sum.toLong()
+    }
+
+    private fun setUpdateTodayPagesButtonListener() {
+        val updateTodayPagesButton: Button = findViewById(R.id.updateTodayPages)
+        val todayPages: TextView = findViewById(R.id.todayPages)
+
+        updateTodayPagesButton.setOnClickListener {
+            val pages = calcTodayPages()
+            todayPages.text = pages.toString()
+        }
     }
 
     private fun setUpdatePageButtonListener() {
@@ -131,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setUpdateTodayPagesButtonListener()
         setSpinner()
         setAddButtonListener()
         setUpdatePageButtonListener()

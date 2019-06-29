@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Tsundoku Pusher</string>
     <string name="add">追加</string>
+    <string name="update_today_pages">更新</string>
     <string name="read">読了</string>
     <string name="hint_book_name">本の名前</string>
     <string name="hint_book_pages">ページ数</string>
