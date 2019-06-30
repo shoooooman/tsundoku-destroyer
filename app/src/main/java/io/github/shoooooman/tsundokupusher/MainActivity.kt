@@ -1,6 +1,5 @@
 package io.github.shoooooman.tsundokupusher
 
-import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,10 +8,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.Result
 import com.google.zxing.integration.android.IntentIntegrator
-import com.journeyapps.barcodescanner.CaptureActivity
 import com.squareup.moshi.Moshi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,7 +17,6 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private val bookList: MutableList<Book> = mutableListOf()
-    private val tag = "main"
 
     private fun calcSumRestPages() : Int {
         var sum = 0
@@ -209,8 +205,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("main", result.contents)
 
                 getBookInfo(result.contents)
-            } else {
-//            super.onActivityResult(requestCode, resultCode, data)
             }
         }
     }
