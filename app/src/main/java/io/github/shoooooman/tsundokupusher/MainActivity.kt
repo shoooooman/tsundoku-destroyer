@@ -133,10 +133,10 @@ class MainActivity : AppCompatActivity() {
         val scanButton: Button = findViewById(R.id.scanButton)
 
         scanButton.setOnClickListener {
-            // FIXME: thisではなくAnyOrientationCaptureActivityに変える
-            // AnyOrientationCaptureActivityの取得の仕方が分からない
             val integrator = IntentIntegrator(this)
-            integrator.setOrientationLocked(false)
+            // set orientation vertical
+            integrator.captureActivity = AnyOrientationCaptureActivity::class.java
+            integrator.setOrientationLocked(true)
             integrator.setBeepEnabled(false)
             integrator.initiateScan()
         }
