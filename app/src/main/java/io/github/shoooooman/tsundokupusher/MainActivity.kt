@@ -10,6 +10,8 @@ import android.widget.*
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.google.zxing.integration.android.IntentIntegrator
+import com.robinhood.ticker.TickerUtils
+import com.robinhood.ticker.TickerView
 import com.squareup.moshi.Moshi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,11 +74,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpdateTodayPagesButtonListener() {
         val updateTodayPagesButton: Button = findViewById(R.id.updateTodayPages)
-        val todayPages: TextView = findViewById(R.id.todayPages)
+        val tickerView: TickerView = findViewById(R.id.todayPages)
 
         updateTodayPagesButton.setOnClickListener {
             val pages = calcTodayPages()
-            todayPages.text = pages.toString()
+            tickerView.text = pages.toString()
         }
     }
 
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         val spinner: Spinner = findViewById(R.id.spinner)
         val selectedPages: EditText = findViewById(R.id.selectedPages)
         val updatePageButton: Button = findViewById(R.id.updatePageButton)
-        val todayPages: TextView = findViewById(R.id.todayPages)
+        val tickerView: TickerView = findViewById(R.id.todayPages)
         val allPages: TextView = findViewById(R.id.sumAllRestPages)
         val alreadyReadPages: TextView = findViewById(R.id.alreadyReadPages)
 
@@ -94,8 +96,8 @@ class MainActivity : AppCompatActivity() {
             book.readPages += readPages
             alreadyReadPages.text = getString(R.string.already_read_pages, book.readPages)
 
-            val today = Integer.parseInt(todayPages.text.toString())
-            todayPages.text = (today - readPages).toString()
+            val today = Integer.parseInt(tickerView.text.toString())
+            tickerView.text = (today - readPages).toString()
 
             val rest = calcSumRestPages()
             allPages.text = getString(R.string.sum_of_pages, rest)
@@ -214,9 +216,13 @@ class MainActivity : AppCompatActivity() {
         val editPages: EditText = findViewById(R.id.editPages)
         val editDeadline: EditText = findViewById(R.id.editDeadline)
         val addButton: Button = findViewById(R.id.addButton)
-        val todayPages: TextView = findViewById(R.id.todayPages)
+        val ticker: TickerView = findViewById(R.id.todayPages)
         val sumAllRestPages: TextView = findViewById(R.id.sumAllRestPages)
         val spinner: Spinner = findViewById(R.id.spinner)
+
+        // setting of ticker
+        ticker.setCharacterLists(TickerUtils.provideNumberList())
+        ticker.animationDuration = 500
 
         addButton.setOnClickListener {
             val name = editName.text.toString()
@@ -231,7 +237,7 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
 
             val today = calcTodayPages()
-            todayPages.text = today.toString()
+            ticker.text = today.toString()
 
             val rest = calcSumRestPages()
             sumAllRestPages.text = getString(R.string.sum_of_pages, rest)
