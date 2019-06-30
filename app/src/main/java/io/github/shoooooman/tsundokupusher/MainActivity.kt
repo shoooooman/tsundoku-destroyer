@@ -1,11 +1,14 @@
 package io.github.shoooooman.tsundokupusher
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.CaptureActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -125,6 +128,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun setScanButtonListener() {
+        val scanButton: Button = findViewById(R.id.scanButton)
+
+        scanButton.setOnClickListener {
+            // FIXME: thisではなくAnyOrientationCaptureActivityに変える
+            // AnyOrientationCaptureActivityの取得の仕方が分からない
+            val integrator = IntentIntegrator(this)
+            integrator.setOrientationLocked(false)
+            integrator.initiateScan()
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            Log.d("main", result.contents)
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
     private fun setAddButtonListener() {
         val editName: EditText = findViewById(R.id.editName)
         val editPages: EditText = findViewById(R.id.editPages)
@@ -160,7 +185,9 @@ class MainActivity : AppCompatActivity() {
 
         setUpdateTodayPagesButtonListener()
         setSpinner()
+        setScanButtonListener()
         setAddButtonListener()
         setUpdatePageButtonListener()
     }
+
 }
