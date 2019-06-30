@@ -32,6 +32,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.github.kittinunf.fuel:fuel:2.1.0'
-    implementation 'com.github.kittinunf.fuel:fuel-json:2.1.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
 }
