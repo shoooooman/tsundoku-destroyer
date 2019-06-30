@@ -5,7 +5,7 @@
 Androidアプリケーション
 
 ## Demo
-![demo](https://raw.github.com/wiki/shoooooman/tsundoku-pusher/images/demo.gif)
+![demo](https://raw.github.com/wiki/shoooooman/tsundoku-pusher/images/demo-mini.gif)
 
 ## 機能
 - 本の情報をバーコードから取ってくる
