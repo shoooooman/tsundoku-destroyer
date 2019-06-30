@@ -1,18 +1,22 @@
 package io.github.shoooooman.tsundokupusher
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.result.Result
+import com.google.zxing.integration.android.IntentIntegrator
+import com.squareup.moshi.Moshi
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private val bookList: MutableList<Book> = mutableListOf()
-    private val tag = "main"
 
     private fun calcSumRestPages() : Int {
         var sum = 0
@@ -125,6 +129,86 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun setScanButtonListener() {
+        val scanButton: Button = findViewById(R.id.scanButton)
+
+        scanButton.setOnClickListener {
+            // FIXME: thisではなくAnyOrientationCaptureActivityに変える
+            // AnyOrientationCaptureActivityの取得の仕方が分からない
+            val integrator = IntentIntegrator(this)
+            integrator.setOrientationLocked(false)
+            integrator.setBeepEnabled(false)
+            integrator.initiateScan()
+        }
+
+    }
+
+    private fun parseJson(jsonString: String) : Pair<String?, Int?> {
+        val moshi = Moshi.Builder().build()
+        val adapter = moshi.adapter(BookInfo::class.java)
+        val bookInfo = adapter.fromJson(jsonString)
+
+        return if (bookInfo != null) {
+            val items = bookInfo.items
+            val bookInfoDetail = items[0]
+            val volumeInfo = bookInfoDetail.volumeInfo
+            Pair(volumeInfo.title, volumeInfo.pageCount)
+        } else {
+            Pair(null, null)
+        }
+    }
+
+    private fun getBookInfo(isbn : String) {
+        // google book api
+        val url = "https://www.googleapis.com/books/v1/volumes?q=isbn:$isbn"
+
+        // responseを受け取る部分はfuelが自動で別スレッドで実行してくれている
+        url.httpGet().responseString { _, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                    Log.d("main", "通信に失敗")
+                }
+                is Result.Success -> {
+                    // with header
+                    Log.d("main", response.toString())
+                    // body
+                    Log.d("result", result.value)
+
+                    val (title, pageCount) = parseJson(result.value)
+                    Log.d("data", title)
+                    Log.d("data", pageCount.toString())
+
+                    // UIの変更はUIスレッドで行う
+                    runOnUiThread {
+                        if (title != null) {
+                            val bookName: EditText = findViewById(R.id.editName)
+                            bookName.setText(title, TextView.BufferType.EDITABLE)
+                        }
+                        if (pageCount != null) {
+                            val bookPages: EditText = findViewById(R.id.editPages)
+                            bookPages.setText(pageCount.toString(), TextView.BufferType.EDITABLE)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("result", requestCode.toString())
+        Log.d("result", data.toString())
+        if (data != null) {
+            val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+            // バーコードからISBNを取得
+            if (result != null) {
+                // ISBNコード
+                Log.d("main", result.contents)
+
+                getBookInfo(result.contents)
+            }
+        }
+    }
+
     private fun setAddButtonListener() {
         val editName: EditText = findViewById(R.id.editName)
         val editPages: EditText = findViewById(R.id.editPages)
@@ -160,7 +244,9 @@ class MainActivity : AppCompatActivity() {
 
         setUpdateTodayPagesButtonListener()
         setSpinner()
+        setScanButtonListener()
         setAddButtonListener()
         setUpdatePageButtonListener()
     }
+
 }

@@ -6,45 +6,77 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+    <TextView
+            android:text="@string/title"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleItem" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="@+id/editName"
+    />
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="@string/hint_book_name"
             android:ems="10"
-            android:id="@+id/editName" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+            android:id="@+id/editName"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/titleItem"/>
+    <TextView
+            android:text="@string/page"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pageItem" android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/editName"
+            app:layout_constraintStart_toStartOf="@+id/editPages"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="@string/hint_book_pages"
             android:ems="10"
-            android:id="@+id/editPages" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/editName" android:layout_marginStart="8dp"
+            android:id="@+id/editPages"
+            app:layout_constraintTop_toBottomOf="@+id/pageItem" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+    <TextView
+            android:text="@string/deadline"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deadlineItem" android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/editPages"
+            app:layout_constraintStart_toStartOf="@+id/editDeadline"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:hint="@string/hint_book_deadline"
             android:ems="10"
-            android:id="@+id/editDeadline" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/editPages" android:layout_marginStart="8dp"
+            android:id="@+id/editDeadline"
+            app:layout_constraintTop_toBottomOf="@+id/deadlineItem" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+    <Button
+            android:text="@string/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scanButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/titleItem" app:layout_constraintStart_toEndOf="@+id/titleItem"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
     <Button
             android:text="@string/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/addButton" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/editDeadline" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toEndOf="@+id/editDeadline" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
+            android:id="@+id/addButton"
+            app:layout_constraintStart_toStartOf="@+id/scanButton"
+            app:layout_constraintBottom_toBottomOf="@+id/editDeadline"/>
     <TextView
             android:text="0"
             android:layout_width="wrap_content"
@@ -52,6 +84,7 @@
             android:id="@+id/todayPages"
             android:textSize="50sp"
             android:textColor="@color/colorAccent"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/addButton" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pageDigit"
             app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintHorizontal_bias="0.55"/>
@@ -78,12 +111,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/updateTodayPages"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/addButton"
             app:layout_constraintStart_toEndOf="@+id/sumAllRestPages" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/todayPages"/>
     <Spinner
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -126,7 +156,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/updatePageButton" app:layout_constraintStart_toEndOf="@+id/selectedSumPages"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
             app:layout_constraintTop_toBottomOf="@+id/spinner" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/selectedDeadline"/>
     <EditText
