@@ -1,3 +1,3 @@
 package io.github.shoooooman.tsundokupusher
 
-data class VolumeInfo(val title: String, val pageCount: Int)
+data class VolumeInfo(val title: String, val pageCount: Int, val imageLinks: ImageLinks)

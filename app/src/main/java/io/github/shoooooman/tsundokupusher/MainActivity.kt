@@ -1,6 +1,7 @@
 package io.github.shoooooman.tsundokupusher
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun parseJson(jsonString: String) : Pair<String?, Int?> {
+    private fun parseJson(jsonString: String) : Triple<String?, Int?, String?> {
         val moshi = Moshi.Builder().build()
         val adapter = moshi.adapter(BookInfo::class.java)
         val bookInfo = adapter.fromJson(jsonString)
@@ -154,9 +155,32 @@ class MainActivity : AppCompatActivity() {
             val items = bookInfo.items
             val bookInfoDetail = items[0]
             val volumeInfo = bookInfoDetail.volumeInfo
-            Pair(volumeInfo.title, volumeInfo.pageCount)
+            Log.d("volumeInfo", volumeInfo.toString())
+            Triple(volumeInfo.title, volumeInfo.pageCount, volumeInfo.imageLinks.smallThumbnail)
         } else {
-            Pair(null, null)
+            Triple(null, null, null)
+        }
+    }
+
+    private fun getThumbnail(url : String) {
+        url.httpGet().response { _, _, result ->
+            when (result) {
+                is Result.Failure -> {
+                    Log.d("thumbnail", "取得失敗")
+                }
+                is Result.Success -> {
+                    val bytes = result.value
+                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+                    // UIの変更はUIスレッドで行う
+                    runOnUiThread {
+                        if (bitmap != null) {
+                            val bookImage: ImageView = findViewById(R.id.bookImage)
+                            bookImage.setImageBitmap(bitmap)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -176,9 +200,10 @@ class MainActivity : AppCompatActivity() {
                     // body
                     Log.d("result", result.value)
 
-                    val (title, pageCount) = parseJson(result.value)
+                    val (title, pageCount, thumbnailURL) = parseJson(result.value)
                     Log.d("data", title)
                     Log.d("data", pageCount.toString())
+                    Log.d("data", thumbnailURL)
 
                     // UIの変更はUIスレッドで行う
                     runOnUiThread {
@@ -190,6 +215,11 @@ class MainActivity : AppCompatActivity() {
                             val bookPages: EditText = findViewById(R.id.editPages)
                             bookPages.setText(pageCount.toString(), TextView.BufferType.EDITABLE)
                         }
+                    }
+
+                    // サムネイルを取得しImageViewにセット
+                    if (thumbnailURL != null) {
+                        getThumbnail(thumbnailURL)
                     }
                 }
             }

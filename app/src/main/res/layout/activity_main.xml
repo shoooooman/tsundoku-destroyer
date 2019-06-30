@@ -14,7 +14,7 @@
             android:id="@+id/todayItem" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"/>
     <com.robinhood.ticker.TickerView
@@ -25,11 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pageDigit"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintHorizontal_bias="0.5"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/todayItem"/>
+            app:layout_constraintTop_toBottomOf="@+id/todayItem" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
     <TextView
             android:text="@string/page_digit"
             android:layout_width="wrap_content"
@@ -63,8 +63,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addBookItem" app:layout_constraintStart_toStartOf="@+id/todayItem"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/todayPages"/>
+    <ImageView
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:id="@+id/bookImage"
+            app:layout_constraintBottom_toBottomOf="@+id/editDeadline"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/addBookItem"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.5" app:layout_constraintStart_toStartOf="@+id/addBookItem"
+    />
     <TextView
             android:text="@string/title"
             android:textSize="20sp"
@@ -80,10 +90,11 @@
             android:hint="@string/hint_book_name"
             android:ems="10"
             android:id="@+id/editName"
+            app:layout_constraintTop_toBottomOf="@+id/titleItem"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/titleItem"/>
+            android:layout_marginLeft="8dp" app:layout_constraintStart_toEndOf="@+id/bookImage"/>
     <TextView
             android:text="@string/page"
             android:textSize="20sp"
@@ -99,9 +110,12 @@
             android:hint="@string/hint_book_pages"
             android:ems="10"
             android:id="@+id/editPages"
-            app:layout_constraintTop_toBottomOf="@+id/pageItem" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/pageItem"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            app:layout_constraintStart_toEndOf="@+id/bookImage" android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"/>
     <TextView
             android:text="@string/deadline"
             android:textSize="20sp"
@@ -117,9 +131,12 @@
             android:hint="@string/hint_book_deadline"
             android:ems="10"
             android:id="@+id/editDeadline"
-            app:layout_constraintTop_toBottomOf="@+id/deadlineItem" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/deadlineItem"
+            app:layout_constraintHorizontal_bias="0.2"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bookImage" android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"/>
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:src="@android:drawable/ic_menu_camera"
