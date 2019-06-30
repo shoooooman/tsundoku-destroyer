@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpdateTodayPagesButtonListener() {
-        val updateTodayPagesButton: Button = findViewById(R.id.updateTodayPages)
+        val updateTodayPagesButton: ImageButton = findViewById(R.id.updateTodayPages)
         val tickerView: TickerView = findViewById(R.id.todayPages)
 
         updateTodayPagesButton.setOnClickListener {
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setScanButtonListener() {
-        val scanButton: Button = findViewById(R.id.scanButton)
+        val scanButton: ImageButton = findViewById(R.id.scanButton)
 
         scanButton.setOnClickListener {
             val integrator = IntentIntegrator(this)
