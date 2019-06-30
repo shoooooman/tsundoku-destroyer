@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.json.responseJson
+import com.github.kittinunf.result.Result
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
 import java.text.SimpleDateFormat
@@ -136,15 +139,47 @@ class MainActivity : AppCompatActivity() {
             // AnyOrientationCaptureActivityの取得の仕方が分からない
             val integrator = IntentIntegrator(this)
             integrator.setOrientationLocked(false)
+            integrator.setBeepEnabled(false)
             integrator.initiateScan()
         }
 
     }
 
+    private fun getBookInfo(isbn : String) : String {
+        val url = "https://www.googleapis.com/books/v1/volumes?q=isbn:$isbn"
+        var rtn = "jsonだよ"
+        // responseを受け取る部分はfuelが自動で別スレッドで実行してくれている
+        url.httpGet().responseString { _, response, result ->
+            when (result) {
+                is Result.Success -> {
+                    // with header
+                    Log.d("main", response.toString())
+
+                    // body
+                    Log.d("result", result.value)
+//                    val jsonObj = result.get().obj()
+//                    val jsonArray = result.get().array()
+//                    Log.d("json", jsonObj.toString())
+//                    Log.d("json", jsonArray.toString())
+
+                    rtn = response.toString()
+                }
+                is Result.Failure -> {
+                    Log.d("main", "通信に失敗")
+                }
+            }
+        }
+        return rtn
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        // バーコードからISBNを取得
         if (result != null) {
+            // ISBNコード
             Log.d("main", result.contents)
+
+            val info = getBookInfo(result.contents)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
