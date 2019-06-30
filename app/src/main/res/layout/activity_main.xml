@@ -7,13 +7,69 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
     <TextView
+            android:text="@string/today_page"
+            android:textSize="28sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/todayItem" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"/>
+    <TextView
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/todayPages"
+            android:textSize="50sp"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pageDigit"
+            app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintHorizontal_bias="0.55"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/todayItem"/>
+    <TextView
+            android:text="@string/page_digit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pageDigit"
+            app:layout_constraintBaseline_toBaselineOf="@+id/todayPages"
+            app:layout_constraintTop_toBottomOf="@+id/addButton" app:layout_constraintStart_toEndOf="@+id/todayPages"
+            android:layout_marginLeft="1dp" android:layout_marginStart="1dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+    <TextView
+            android:text="@string/sum_of_pages_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sumAllRestPages" app:layout_constraintStart_toEndOf="@+id/pageDigit"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/todayPages"
+            app:layout_constraintTop_toBottomOf="@+id/addButton"/>
+    <Button
+            android:text="@string/update_today_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateTodayPages"
+            app:layout_constraintStart_toEndOf="@+id/sumAllRestPages" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/todayPages"/>
+    <TextView
+            android:text="@string/add_book"
+            android:textSize="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addBookItem" app:layout_constraintStart_toStartOf="@+id/todayItem"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/todayPages"/>
+    <TextView
             android:text="@string/title"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/titleItem" android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="@+id/editName"
-    />
+            android:id="@+id/titleItem"
+            app:layout_constraintStart_toStartOf="@+id/editName"
+            app:layout_constraintTop_toBottomOf="@+id/addBookItem"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,48 +134,20 @@
             app:layout_constraintStart_toStartOf="@+id/scanButton"
             app:layout_constraintBottom_toBottomOf="@+id/editDeadline"/>
     <TextView
-            android:text="0"
+            android:text="@string/read_book"
+            android:textSize="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/todayPages"
-            android:textSize="50sp"
-            android:textColor="@color/colorAccent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/addButton" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pageDigit"
-            app:layout_constraintHorizontal_chainStyle="packed" app:layout_constraintHorizontal_bias="0.55"/>
-    <TextView
-            android:text="@string/page_digit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pageDigit"
-            app:layout_constraintBaseline_toBaselineOf="@+id/todayPages"
-            app:layout_constraintTop_toBottomOf="@+id/addButton" app:layout_constraintStart_toEndOf="@+id/todayPages"
-            android:layout_marginLeft="1dp" android:layout_marginStart="1dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
-    <TextView
-            android:text="@string/sum_of_pages_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sumAllRestPages" app:layout_constraintStart_toEndOf="@+id/pageDigit"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/todayPages"
-            app:layout_constraintTop_toBottomOf="@+id/addButton"/>
-    <Button
-            android:text="@string/update_today_pages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/updateTodayPages"
-            app:layout_constraintStart_toEndOf="@+id/sumAllRestPages" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/todayPages"/>
+            android:id="@+id/read_item" app:layout_constraintStart_toStartOf="@+id/addBookItem"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/editDeadline"/>
     <Spinner
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner" app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/todayPages"/>
+            android:layout_marginRight="8dp" app:layout_constraintTop_toBottomOf="@+id/read_item"/>
     <TextView
             android:text="@string/already_read_pages_default" android:textSize="20sp"
             android:layout_width="wrap_content"

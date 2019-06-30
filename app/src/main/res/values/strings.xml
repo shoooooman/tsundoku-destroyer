@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Tsundoku Pusher</string>
+    <string name="today_page">今日のページ数</string>
     <string name="title">本のタイトル</string>
     <string name="page">ページ数</string>
     <string name="deadline">読破目標日</string>
+    <string name="add_book">本を追加</string>
     <string name="scan">読取</string>
     <string name="add">追加</string>
     <string name="update_today_pages">更新</string>
+    <string name="read_book">情報を更新</string>
     <string name="read">読了</string>
     <string name="hint_book_name">広辞苑</string>
     <string name="hint_book_pages">623</string>
